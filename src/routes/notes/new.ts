@@ -1,4 +1,4 @@
-import { addTask } from "@/helpers/tasks";
+import { addTask, deleteTask } from "@/helpers/tasks";
 import createNote from "@/notes/new";
 import { Request, Response } from "express";
 
@@ -27,9 +27,14 @@ async function routeNewNote(req : Request, res : Response) {
     const files = req.files as Express.Multer.File[];
     const task = addTask(user.id, 'Note creation');
 
-    createNote(task, files, ytUrl, categoryId);
+    createNote(task, files, ytUrl, categoryId).catch((error) => {
+        console.error(error);
+        deleteTask(user.id, task.taskId);
+    })
     
-    res.status(200);
+    res.status(200).json({
+        message: 'Note creation started',
+    });
 }
 
 export default routeNewNote;

@@ -7,7 +7,7 @@ import middlewareAuth from "./middleware/auth";
 
 const app = express();
 
-app.use(middlewareAuth);
+//app.use(middlewareAuth);
 app.use(express.json());
 app.use("/notes", notesRouter);
 app.use("/categories", categoriesRouter);
