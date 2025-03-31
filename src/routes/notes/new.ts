@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 
 async function routeNewNote(req : Request, res : Response) {
     const user = req.user;
+    const userId = "fake" //user.id;
 
     let { ytUrl, categoryId } = req.body;
     if (ytUrl && (typeof ytUrl !== 'string')) {
@@ -25,11 +26,11 @@ async function routeNewNote(req : Request, res : Response) {
     }
     
     const files = req.files as Express.Multer.File[];
-    const task = addTask(user.id, 'Note creation');
+    const task = addTask(userId, 'Note creation');
 
     createNote(task, files, ytUrl, categoryId).catch((error) => {
         console.error(error);
-        deleteTask(user.id, task.taskId);
+        deleteTask(userId, task.taskId);
     })
     
     res.status(200).json({

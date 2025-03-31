@@ -12,6 +12,7 @@ export async function generateTranscriptSummary(
     let transcript = await AssemblyAI.transcripts.transcribe({
         audio: audioFile.buffer,
         auto_chapters: true,
+        speech_model: 'nano',
     });
 
     if (transcript.status === 'error') {
@@ -26,7 +27,7 @@ export async function generateTranscriptSummary(
         transcript.id
     );
 
-    console.log("Finished generating transcript summary");
+    console.log('Finished generating transcript summary');
 
     return {
         summaries: transcript.chapters.map((chapter) => {

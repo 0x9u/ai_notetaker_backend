@@ -48,6 +48,8 @@ async function createNote(
             }
             const data = await generateTranscriptSummary(file, fileType);
 
+            console.log("Finished generating transcript summary data:", data);
+
             transcriptSummaryData[index + '-' + file.originalname] = data;
         })
     );
@@ -83,6 +85,7 @@ async function createNote(
 
     console.log('Generating note');
     const note = await generateNote(input);
+    console.log("Generated note", note);
 
     console.log("Note generated");
 
